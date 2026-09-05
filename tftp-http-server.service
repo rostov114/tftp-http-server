@@ -1,0 +1,24 @@
+[Unit]
+Description=TFTP HTTP Proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+
+ExecStart=/usr/local/bin/tftp-http-server \
+    -http-base-url http://tftp.local/ \
+    -tftp-bind-address :69 \
+    -tftp-timeout 5s
+
+Restart=on-failure
+RestartSec=2
+
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+
+
+
